@@ -45,6 +45,13 @@ class AppController extends Controller
             'enableBeforeRedirect' => false,
         ]);
         $this->loadComponent('Flash');
+
+        $this->loadComponent('Cookie');  // Load component Cookie
+        $this->Cookie->configKey('User', [
+            'expires' => '+2 minutes',  // Cookies expired date
+            'path', '/'
+        ]);
+
         $this->loadComponent('Auth', [
             'authenticate' => [
                 'Form' => [
@@ -52,19 +59,33 @@ class AppController extends Controller
                         'username' => 'USERNAME',
                         'password' => 'password'
                     ]
-                ]    
+                ],
+                'RememberMe.Cookie' => [
+                    'cookie' => [
+                        'name' => 'rememberMe',
+                        'expires' => '+1 minute',
+                        'secure' => true,
+                        'httpOnly' => true,
+                    ],
+                ],
             ],
-
             'loginAction' => [
                 'controller' => 'Users',
                 'action' => 'login'
             ]
         ]);    
-
+        
         /*
          * Enable the following component for recommended CakePHP security settings.
          * see https://book.cakephp.org/3/en/controllers/components/security.html
          */
         //$this->loadComponent('Security');
+
+        if($this->request->session()->read('Auth.User')) {
+            $this->set('logedIn',true);
+        } else {
+            $this->set('logedIn',false);
+        }
+
     }
 }

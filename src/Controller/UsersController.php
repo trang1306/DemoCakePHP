@@ -2,16 +2,24 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Event\Event;
 
 /**
  * Users Controller
  *
- * @property \App\Model\Table\UsersTable $Users
+ * @property \App\
+ * Model\Table\UsersTable $Users
  *
  * @method \App\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class UsersController extends AppController
 {
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        $this->Auth->allow('add');  // Cho phép access add user mà không cần login
+    }
+
     /**
      * Index method
      *
@@ -105,16 +113,56 @@ class UsersController extends AppController
     }
 
     public function login() {
-        if($this->request->is('post')) {
+        // Data mặc định
+        $this->set('username', '');
+        $this->set('remember_me', '');
+
+        // Get form data
+        $data = $this->request->data;
+
+        // Done việc ghi nhớ form rồi đấy ^^
+        // Nhưng mà hay hơn nữa thì mình check xem thông tin user login đúng chưa?
+        // Nếu đúng thì mới ghi nhớ, còn không thì bỏ qua :) ^^
+        // cho thêm if so sánh nhập vô với giá trị trong db ^^
+        //    -> không cần, nhét đoạn set cookies ngay dưới đoạn Auth->identify() là được :)
+        
+        // Ủa sao nó xoá mất 1 đoạn nhỉ?
+        if ($this->request->is('post')) {
+            // Bây giờ bắt đầu nè ^^
+            // Check xem ở form login user có check vào checkbox remember me không? oki
+            // Đưa đoạn set Cookies vào đây để nó chỉ có hiệu lực set khi user click vào button Login mà thôi
+            if ($data['remember_me']) {
+                // Nếu có thì set data vào Cookies
+                $this->Cookie->write('User.username', $data['USERNAME']);
+                $this->Cookie->write('User.remember_me', $data['remember_me']);
+            } else {
+                // Nếu user không check vào thì mình không cần ghi nhớ làm gì
+                // Xoá Cookies User đi luôn ^^
+                $this->Cookie->delete('User');
+            }
+
             $user = $this->Auth->identify();
             if($user) {
                 $this->Auth->setUser($user);
                 $this->Flash->success('Login Successful');
                 $this->redirect($this->Auth->redirectUrl());
             } else {
-                $this->Flash->error('Login Fail');
+                $this->Flash->error('Username or password incorrect');
             }
         }
+        // Get Cookies values for User
+        $cookies = $this->Cookie->read('User');
+        //đoan set nay a le
+        if ($cookies['remember_me']) {
+            // Nếu Cookie remember_me đã được set trước đó
+            // Lấy data trong Cookies ra gán vào form
+            $this->set('username', $cookies['username']);
+            $this->set('remember_me',$cookies['remember_me']);
+        }
     }
-    
+ 
+    public function logout() {
+        $this->Flash->success('Logout Successful');
+        $this->redirect($this->Auth->logout());
+    }
 }

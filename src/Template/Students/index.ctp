@@ -3,15 +3,28 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Student[]|\Cake\Collection\CollectionInterface $students
  */
+$datepicker =  $this->Html->css('datepicker');
+$bootstrap_datepicker = $this->Html->script('bootstrap-datepicker');
+$angular =  $this->Html->script('angular.min');
+$this->assign('js_head', $angular);
+$this->assign('js_head2', $bootstrap_datepicker);
+$this->assign('css2', $datepicker);
+$this->assign('js_head3', $this->Html->script('select2.min'));
+$this->assign('css3', $this->Html->css('select2'));
+echo $this->Html->script('select2.custom');
+echo $this->Html->css('select2-bootstrap');
+echo $this->Html->css('select2-as');
+echo $this->Html->css('select2-bootstrap-full');
+
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
+<!-- <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('New Student'), ['action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="students index large-9 medium-8 columns content">
-    <h3><?= __('Students') ?></h3>
+    <h3><?= __('All Students') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
@@ -57,5 +70,15 @@
             <?= $this->Paginator->last(__('last') . ' >>') ?>
         </ul>
         <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
+    </div>
+</div> -->
+<div>
+    <div class="form-group">
+        <div class="col-sm-12">
+            <h3><?= __('All Students') ?></h3>
+        </div>        
+        <div class="col-sm-2">
+            <?= $this->Html->link(__('New Student'), ['action' => 'add', 'class' => 'btn btn-primary']) ?>
+        </div>
     </div>
 </div>

@@ -5,13 +5,13 @@
             <h2 class="text-center">Login</h2>
         </div>
         <div class="username-form">
-            <?= $this->Form->control('USERNAME', ['label' => 'USERNAME', 'placeholder' => 'Enter username']); ?>
+            <?= $this->Form->control('USERNAME', ['label' => 'USERNAME', 'placeholder' => 'Enter username', 'required', 'value' => $username]); ?>
         </div>
         <div class="password-form">
-            <?= $this->Form->control('password', ['label' => 'PASSWORD', 'placeholder' => 'Enter password']); ?>
+            <?= $this->Form->control('password', ['label' => 'PASSWORD', 'required', 'placeholder' => 'Enter password']); ?>
         </div>
         <div class="check-form">
-            <?= $this->Form->control('published', ['type' => 'checkbox', 'label' => 'Remember Me']);?>
+            <?= $this->Form->control('remember_me', ['type' => 'checkbox', 'label' => 'Remember Me', 'checked' => $remember_me]); ?>
         <div>
         <?= $this->Form->submit('Login', array('class' => 'button')); ?>
         <?= $this->Form->end(); ?>

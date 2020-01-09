@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a23e45ae5ccb525d1d45434a901fb219",
-    "content-hash": "bae3f640a631a993a49129d353eefbf9",
+    "hash": "eb6a58173c6634b057590718d72c77f3",
+    "content-hash": "8d941c14bab7df9cae455d7ab479b039",
     "packages": [
         {
             "name": "aura/intl",
@@ -343,6 +343,41 @@
                 "php mobile detect"
             ],
             "time": "2019-09-18 18:44:20"
+        },
+        {
+            "name": "nojimage/cakephp-remember-me",
+            "version": "v2.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nojimage/cakephp-remember-me.git",
+                "reference": "be80f68cf5ff840b4c93209344322d4e9adb086e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nojimage/cakephp-remember-me/zipball/be80f68cf5ff840b4c93209344322d4e9adb086e",
+                "reference": "be80f68cf5ff840b4c93209344322d4e9adb086e",
+                "shasum": ""
+            },
+            "require": {
+                "cakephp/cakephp": "^3.4",
+                "ext-json": "*",
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.7|^6.0"
+            },
+            "type": "cakephp-plugin",
+            "autoload": {
+                "psr-4": {
+                    "RememberMe\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "RememberMe authentication adapter plugin for CakePHP 3",
+            "time": "2019-03-12 08:02:22"
         },
         {
             "name": "psr/http-message",
