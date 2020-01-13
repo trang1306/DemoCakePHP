@@ -15,7 +15,6 @@ echo $this->Html->script('select2.custom');
 echo $this->Html->css('select2-bootstrap');
 echo $this->Html->css('select2-as');
 echo $this->Html->css('select2-bootstrap-full');
-
 ?>
 <!-- <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
@@ -73,12 +72,15 @@ echo $this->Html->css('select2-bootstrap-full');
     </div>
 </div> -->
 <div>
-    <div class="form-group">
-        <div class="col-sm-12">
-            <h3><?= __('All Students') ?></h3>
-        </div>        
-        <div class="col-sm-2">
-            <?= $this->Html->link(__('New Student'), ['action' => 'add', 'class' => 'btn btn-primary']) ?>
+    <div class="row">
+        <div class="col-sm-6 form-group bg-primary">
+            <h2 class="text-uppercase"><?= __('All Students') ?></h2>
+        </div>
+        <div class="col-sm-6 form-group text-center">
         </div>
     </div>
+    <div class="col-sm-2">
+            <!-- <?= $this->Html->link(__('New Student'), ['action' => 'add'], ['class' => 'btn btn-primary btn-block']) ?> -->
+            <?= $this->Html->link(__('New Student'), ['controller' => 'Students', 'action' => 'add'], ['class' => 'btn btn-primary btn-block']); ?>
+        </div>
 </div>
