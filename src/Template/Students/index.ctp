@@ -15,7 +15,8 @@ echo $this->Html->script('select2.custom');
 echo $this->Html->css('select2-bootstrap');
 echo $this->Html->css('select2-as');
 echo $this->Html->css('select2-bootstrap-full');
-
+echo $this->HTML->css('bootstrap.min.css');
+echo $this->Html->script('bootstrap.min.js');
 ?>
 <!-- <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
@@ -78,7 +79,7 @@ echo $this->Html->css('select2-bootstrap-full');
             <h3><?= __('All Students') ?></h3>
         </div>        
         <div class="col-sm-2">
-            <?= $this->Html->link(__('New Student'), ['action' => 'add', 'class' => 'btn btn-primary']) ?>
+            <?= $this->Html->link(__('New Student'), ['action' => 'add'], ['class' => 'text-success']) ?>
         </div>
     </div>
 </div>

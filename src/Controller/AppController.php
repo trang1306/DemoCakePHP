@@ -69,6 +69,14 @@ class AppController extends Controller
                     ],
                 ],
             ],
+            'loginRedirect' => [
+                'controller' => 'Students',
+                'action' => 'index'
+            ],
+            'logoutRedirect' => [
+                'controller' => 'Users',
+                'action' => 'login'
+            ],
             'loginAction' => [
                 'controller' => 'Users',
                 'action' => 'login'
