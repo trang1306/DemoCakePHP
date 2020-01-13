@@ -48,7 +48,7 @@ class AppController extends Controller
 
         $this->loadComponent('Cookie');  // Load component Cookie
         $this->Cookie->configKey('User', [
-            'expires' => '+2 minutes',  // Cookies expired date
+            'expires' => '+2 minutes',  // Cookies expired date          
             'path', '/'
         ]);
 
