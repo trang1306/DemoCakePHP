@@ -121,11 +121,11 @@ class UsersController extends AppController
         if ($this->request->is('post')) {
             $validator = new Validator();
             $validator
-                ->notBlank('USERNAME', 'We need your name.');
-                    
+                ->notBlank('USERNAME')
+                ->notBlank('password');  
             $errors = $validator->errors($this->request->data());
             if (!empty($errors)) {
-                $this->Flash->error('Username not empty');
+                $this->Flash->error('Username or Password not empty');
             }
 
             if ($data['remember_me']) {
