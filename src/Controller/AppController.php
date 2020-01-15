@@ -48,7 +48,7 @@ class AppController extends Controller
 
         $this->loadComponent('Cookie');  // Load component Cookie
         $this->Cookie->configKey('User', [
-            'expires' => '+2 minutes',  // Cookies expired date
+            'expires' => '+10 minutes',  // Cookies expired date
             'path', '/'
         ]);
 
@@ -61,9 +61,15 @@ class AppController extends Controller
                     ]
                 ],
                 'RememberMe.Cookie' => [
+                    'userModel' => 'Users',
+                    'fields' => [
+                        'username' => 'USERNAME',
+                        'password' => 'password'
+                    ],
+                    'inputKey' => 'remember_me',
                     'cookie' => [
                         'name' => 'rememberMe',
-                        'expires' => '+1 minute',
+                        'expires' => '+10 minutes',
                         'secure' => true,
                         'httpOnly' => true,
                     ],
@@ -96,4 +102,18 @@ class AppController extends Controller
         }
 
     }
+
+    // public function beforeFilter(Event $event)
+    // {
+    //     // print_r("Session\n <br />");
+    //     // print_r($this->request->session());
+    //     // print_r("User\n <br />");
+    //     // print_r($this->request->session()->read('Auth.User')); die();
+    //     // if($this->request->session()->read('Auth.User')) {
+    //     //     if ($this->request->getRequestTarget() == '/')
+    //     //     {
+    //     //         $this->redirect(['controller' => 'Students', 'action' => 'index']);
+    //     //     }
+    //     // }
+    // }
 }
