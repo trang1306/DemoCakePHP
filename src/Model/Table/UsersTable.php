@@ -35,6 +35,8 @@ class UsersTable extends Table
         $this->setPrimaryKey('idUSER');
     }
 
+    
+
     /**
      * Default validation rules.
      *
@@ -50,12 +52,14 @@ class UsersTable extends Table
         $validator
             ->scalar('USERNAME')
             ->maxLength('USERNAME', 200)
-            ->allowEmptyString('USERNAME');
+            ->allowEmptynString('USERNAME')
+            ->notBlank('USERNAME');
 
         $validator
             ->scalar('password')
             ->maxLength('password', 45)
-            ->allowEmptyString('password');
+            ->allowEmptyString('password')
+            ->notBlank('password');
 
         $validator
             ->scalar('ROLE')
