@@ -224,9 +224,8 @@ class InitTables extends AbstractMigration
                 'limit' => null,
                 'null' => true,
             ])
-            ->addColumn('data', 'binary', [
+            ->addColumn('data', 'blob', [
                 'default' => null,
-                'limit' => null,
                 'null' => true,
             ])
             ->addColumn('expires', 'integer', [

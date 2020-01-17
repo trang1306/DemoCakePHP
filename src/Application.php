@@ -51,6 +51,16 @@ class Application extends BaseApplication
 
         // Load more plugins here
         $this->addPlugin('RememberMe');
+
+        Configure::write('Session', [
+            'defaults' => 'php',
+            'ini' => [
+                // Invalidate the cookie after 30 minutes without visiting
+                // any page on the site.
+                // 1 minute = 60s * 1, if 1h => 60 * 60
+                'session.gc_maxlifetime' => 60 * 1  
+            ]
+        ]);
     }
 
     /**
