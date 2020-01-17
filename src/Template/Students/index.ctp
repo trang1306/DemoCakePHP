@@ -74,7 +74,7 @@ echo $this->Html->css('select2-bootstrap-full');
 <div>
     <div class="form-group">
         <div class="col-sm-12">
-            <h3 class="text-center"><?= __('All Students') ?></h3>
+            <h1 class="text-center"><?= __('All Students') ?></h1>
         </div>        
         <div class="col-sm-2">
             <?= $this->Html->link(__('NEW STUDENT'), ['action' => 'add'], ['class' => 'btn btn-info']) ?>

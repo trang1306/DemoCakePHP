@@ -51,6 +51,18 @@ class Application extends BaseApplication
 
         // Load more plugins here
         $this->addPlugin('RememberMe');
+
+        Configure::write('Session', [
+            'defaults' => 'php',
+            'ini' => [
+                // Invalidate the cookie after 30 minutes without visiting
+                // any page on the site.
+                'session.gc_maxlifetime' => 60 * 1  // 1 minute = 60s * 1, if 1h => 60 * 60
+                // Set là nó sẽ die nếu không làm việc trên firefox này giờ nè
+                // NÃy giờ toàn làm trên VS Code, giờ check coi, à ,quên chưa check mà nãy giờ giải thích cho Ly ;v^^
+                // Chờ 6 rồi check lại coi oki , nếu đã check và trong config là +1 day cho nên expected là không bị out
+            ]
+        ]);
     }
 
     /**

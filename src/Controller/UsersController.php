@@ -121,17 +121,18 @@ class UsersController extends AppController
         if ($this->request->is('post')) {
             $validator = new Validator();
             $validator
-                ->notBlank('USERNAME', 'We need your name.');
-                    
+                ->notBlank('USERNAME')
+                ->notBlank('password');  
             $errors = $validator->errors($this->request->data());
             if (!empty($errors)) {
-                $this->Flash->error('Username not empty');
+                $this->Flash->error('Username or Password not empty');
             }
-
+            // Write Cookies for remember username and remember_me checkbox at UI
             if ($data['remember_me']) {
                 $this->Cookie->write('User.username', $data['USERNAME']);
                 $this->Cookie->write('User.remember_me', $data['remember_me']);
             } else {
+                // Remove Cookies User if checkbox isn't checked
                 $this->Cookie->delete('User');
             }
 
@@ -144,6 +145,7 @@ class UsersController extends AppController
                 $this->Flash->error('Username or password incorrect');
             }
         }
+
         // Get Cookies values for User
         $cookies = $this->Cookie->read('User');
         //set data from remember_me from cookies 
