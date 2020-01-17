@@ -14,7 +14,7 @@
  * @var \App\View\AppView $this
  */
 
-$cakeDescription = 'CakePHP: the rapid development php framework';
+$cakeDescription = 'Demo Cake Framework';
 ?>
 <!DOCTYPE html>
 <html>
@@ -52,6 +52,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     </nav>
     <?= $this->Flash->render() ?>
     <div class="container clearfix">
+        <!-- <?php echo "Remember? ".$cookieHelper->read('User.remember_me'); ?> -->
         <?= $this->fetch('content') ?>
     </div>
     <footer>

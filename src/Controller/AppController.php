@@ -38,6 +38,7 @@ class AppController extends Controller
      * @return void
      */
     public function initialize()
+    
     {
         parent::initialize();
 
@@ -47,8 +48,8 @@ class AppController extends Controller
         $this->loadComponent('Flash');
 
         $this->loadComponent('Cookie');  // Load component Cookie
-        $this->Cookie->configKey('User', [
-            'expires' => '+2 minutes',  // Cookies expired date          
+        $this->Cookie->configKey('User', [ // Configurations for global Cookies (app's Cookies)
+            'expires' => '+30 days',  // Cookies expired date    
             'path', '/'
         ]);
 
@@ -61,10 +62,16 @@ class AppController extends Controller
                     ]
                 ],
                 'RememberMe.Cookie' => [
+                    'userModel' => 'Users',
+                    'fields' => [
+                        'username' => 'USERNAME',
+                        'password' => 'password'
+                    ],
+                    'inputKey' => 'remember_me',
                     'cookie' => [
                         'name' => 'rememberMe',
-                        'expires' => '+1 minute',
-                        'secure' => true,
+                        'expires' => '+1 day', // Cookies expired date for Remember Me plugin 
+                        'secure' => false,
                         'httpOnly' => true,
                     ],
                 ],
@@ -81,7 +88,7 @@ class AppController extends Controller
                 'controller' => 'Users',
                 'action' => 'login'
             ]
-        ]);    
+        ]);
         
         /*
          * Enable the following component for recommended CakePHP security settings.
@@ -95,5 +102,22 @@ class AppController extends Controller
             $this->set('logedIn',false);
         }
 
+    }
+
+    public function beforeFilter(Event $event)
+    {
+        // Bypass CookieHelper for UI usage
+        $this->set('cookieHelper', $this->Cookie);
+
+    //     // print_r("Session\n <br />");
+    //     // print_r($this->request->session());
+    //     // print_r("User\n <br />");
+    //     // print_r($this->request->session()->read('Auth.User')); die();
+    //     // if($this->request->session()->read('Auth.User')) {
+    //     //     if ($this->request->getRequestTarget() == '/')
+    //     //     {
+    //     //         $this->redirect(['controller' => 'Students', 'action' => 'index']);
+    //     //     }
+    //     // }
     }
 }
