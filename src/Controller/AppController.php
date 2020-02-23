@@ -47,9 +47,11 @@ class AppController extends Controller
         ]);
         $this->loadComponent('Flash');
 
+        //Configaration for global Cookies
         $this->loadComponent('Cookie');  // Load component Cookie
         $this->Cookie->configKey('User', [ // Configurations for global Cookies (app's Cookies)
             'expires' => '+30 days',  // Cookies expired date    
+
             'path', '/'
         ]);
 
@@ -71,6 +73,7 @@ class AppController extends Controller
                     'cookie' => [
                         'name' => 'rememberMe',
                         'expires' => '+1 day', // Cookies expired date for Remember Me plugin 
+
                         'secure' => false,
                         'httpOnly' => true,
                     ],
@@ -109,6 +112,7 @@ class AppController extends Controller
         // Bypass CookieHelper for UI usage
         $this->set('cookieHelper', $this->Cookie);
 
+
     //     // print_r("Session\n <br />");
     //     // print_r($this->request->session());
     //     // print_r("User\n <br />");
@@ -118,6 +122,6 @@ class AppController extends Controller
     //     //     {
     //     //         $this->redirect(['controller' => 'Students', 'action' => 'index']);
     //     //     }
-    //     // }
     }
+
 }
