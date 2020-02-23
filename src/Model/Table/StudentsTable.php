@@ -33,6 +33,7 @@ class StudentsTable extends Table
         $this->setTable('students');
         $this->setDisplayField('idSTUDENT');
         $this->setPrimaryKey('idSTUDENT');
+        $this->addBehavior('Timestamp');
     }
 
     /**

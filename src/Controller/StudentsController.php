@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Utility\Security;
 
 /**
  * Students Controller
@@ -12,16 +13,31 @@ use App\Controller\AppController;
  */
 class StudentsController extends AppController
 {
+    public function initialize() {
+        parent::initialize();
+        $this->loadComponent('Paginator');
+        $this->Auth->allow(['index'], ['add'], ['edit']);
+    }
+
     /**
      * Index method
      *
      * @return \Cake\Http\Response|null
      */
     public function index()
-    {
-        $students = $this->paginate($this->Students);
+    {   
+        $this->paginate = [
+            'Students' => [
+                'limit' => 5
+            ]
+        ];
 
-        $this->set(compact('students'));
+        $students = $this->paginate(
+            $this->Students->find('all')
+         );
+
+        //$students = $this->Students->find('all');
+        $this->set(compact('students', $students));
     }
 
     /**
@@ -48,14 +64,27 @@ class StudentsController extends AppController
     public function add()
     {
         $student = $this->Students->newEntity();
-        if ($this->request->is('post')) {
-            $student = $this->Students->patchEntity($student, $this->request->getData());
-            if ($this->Students->save($student)) {
-                $this->Flash->success(__('The student has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+        if ($this->request->is('post')) {
+            $data = $this->request->getData();
+            $myname = $data['IMAGE']['name'];
+            $mytmp = $data['IMAGE']['tmp_name'];
+            $myext = substr(strrchr($myname, "."), 1);
+            $mypath = "uploads/".Security::hash($myname).".".$myext;
+            
+            // $student->name = $myname;
+            $student->IMAGE = $mypath;
+
+            if(move_uploaded_file($mytmp, WWW_ROOT. $mypath)) {
+                if ($this->Students->save($student)) {
+                    $this->Flash->success(__('The student has been saved.'));
+
+                    return $this->redirect(['action' => 'index']);
+                }
+                $this->Flash->error(__('The student could not be saved. Please, try again.'));
+            } else {
+                $this->Flash->error(__('File upload error.'));
             }
-            $this->Flash->error(__('The student could not be saved. Please, try again.'));
         }
         $this->set(compact('student'));
     }
@@ -73,6 +102,16 @@ class StudentsController extends AppController
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
+            if(!empty($this->request->data['image']['name'])){
+                $fileName = $this->request->data['image']['name'];
+                $uploadPath = 'img/';
+                $uploadFile = $uploadPath.$fileName;
+                if(move_uploaded_file($this->request->data['image']['tmp_name'],$uploadFile))
+                {
+                    $this->request->data['image'] = $fileName;
+                }
+            }
+
             $student = $this->Students->patchEntity($student, $this->request->getData());
             if ($this->Students->save($student)) {
                 $this->Flash->success(__('The student has been saved.'));
