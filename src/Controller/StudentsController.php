@@ -71,14 +71,10 @@ class StudentsController extends AppController
             $mytmp = $data['IMAGE']['tmp_name'];
             $myext = substr(strrchr($myname, "."), 1);
             $mypath = "uploads/".Security::hash($myname).".".$myext;
-            
-            // $student->name = $myname;
             $student->IMAGE = $mypath;
-
             if(move_uploaded_file($mytmp, WWW_ROOT. $mypath)) {
                 if ($this->Students->save($student)) {
                     $this->Flash->success(__('The student has been saved.'));
-
                     return $this->redirect(['action' => 'index']);
                 }
                 $this->Flash->error(__('The student could not be saved. Please, try again.'));
@@ -102,23 +98,24 @@ class StudentsController extends AppController
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            if(!empty($this->request->data['image']['name'])){
-                $fileName = $this->request->data['image']['name'];
-                $uploadPath = 'img/';
-                $uploadFile = $uploadPath.$fileName;
-                if(move_uploaded_file($this->request->data['image']['tmp_name'],$uploadFile))
-                {
-                    $this->request->data['image'] = $fileName;
-                }
-            }
+            $data = $this->request->getData();
+            $myname = $data['IMAGE']['name'];
+            $mytmp = $data['IMAGE']['tmp_name'];
+            $myext = substr(strrchr($myname, "."), 1);
+            $mypath = "uploads/".Security::hash($myname).".".$myext;
+            $student->IMAGE = $mypath;
 
             $student = $this->Students->patchEntity($student, $this->request->getData());
-            if ($this->Students->save($student)) {
-                $this->Flash->success(__('The student has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The student could not be saved. Please, try again.'));
+            if(move_uploaded_file($mytmp, WWW_ROOT. $mypath)) {
+                if ($this->Students->save($student)) {
+                    $this->Flash->success(__('The student has been saved.'));
+    
+                    return $this->redirect(['action' => 'index']);
+                }
+                $this->Flash->error(__('The student could not be saved. Please, try again.'));
+            } else {
+                $this->Flash->error(__('File upload error.'));
+            }   
         }
         $this->set(compact('student'));
     }

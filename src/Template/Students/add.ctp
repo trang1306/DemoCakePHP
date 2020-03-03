@@ -4,7 +4,7 @@
  * @var \App\Model\Entity\Student $student
  */
 ?>
-
+<link href="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">
 <div>
     <div class="form-group row">
         <h3 style="color: #003300; margin-top: 3%;">Add Student</h3>
@@ -54,7 +54,8 @@
     <div class="form-group row"> 
         <div class="form-group col-sm-12"> 
             <label><?= __('Image')?></label>
-            <?= $this->Form->file('IMAGE',['label' => false]); ?>   
+            <?= $this->Form->file('IMAGE',['label' => false, 'id' => 'imgInp']); ?>  
+            <?= $this->Html->image(['id' => 'blah']); ?>
         </div> 
     </div>
     <div class="form-group row clearfix ">
@@ -64,3 +65,20 @@
     </div>
     <?= $this->Form->end() ?>
 </div>
+<script>
+    function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        
+        reader.onload = function(e) {
+        $('#blah').attr('src', e.target.result);
+        }
+        
+        reader.readAsDataURL(input.files[0]);
+    }
+    }
+
+    $("#imgInp").change(function() {
+    readURL(this);
+    });
+</script>

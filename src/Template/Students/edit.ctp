@@ -53,7 +53,7 @@
     <div class="form-group row"> 
         <div class="form-group col-sm-12"> 
             <label><?= __('Image')?></label>
-            <?= $this->Form->control('IMAGE',['type' => 'file']); ?>   
+            <?= $this->Form->control('IMAGE',['type' => 'file', 'label' => false]); ?>   
         </div> 
     </div>
     <div class="form-group row clearfix ">
