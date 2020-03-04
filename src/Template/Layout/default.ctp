@@ -27,6 +27,13 @@ $cakeDescription = 'Demo Cake Framework';
     </title>
     <?= $this->Html->meta('icon') ?>
 
+    <?= $this->Html->script('jquery-3.4.1.slim.min.js'); ?>
+    <?= $this->Html->script('popper.min.js'); ?>
+
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <?= $this->HTML->css('bootstrap.min.css'); ?>
+    <?= $this->Html->script('bootstrap.min.js'); ?>
+
     <?= $this->Html->css('base.css') ?>
     <?= $this->Html->css('style.css') ?>
 

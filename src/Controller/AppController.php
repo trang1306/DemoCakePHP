@@ -47,6 +47,7 @@ class AppController extends Controller
         ]);
         $this->loadComponent('Flash');
 
+        //Configaration for global Cookies
         $this->loadComponent('Cookie');  // Load component Cookie
         $this->Cookie->configKey('User', [ // Configurations for global Cookies (app's Cookies)
             'expires' => '+30 days',  // Cookies expired date    
